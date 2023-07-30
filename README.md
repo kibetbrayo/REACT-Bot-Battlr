@@ -1,9 +1,9 @@
 ## Project Setup
 Once you have the plan in place for the application you want to build take the following steps:
--Create a new project folder.
--Create a new GitHub repository
--In your project directory, create a db.json file and use this data
--Links to an external site.
+- Create a new project folder.
+- Create a new GitHub repository.
+- In your project directory, create a db.json file and use this data.
+- Links to an external site.
  ## for your server DB.
 Run this command to get the backend started: json-server --watch db.json
 Test your server by visiting this route in the browser: http://localhost:8001/bots
