@@ -1,3 +1,12 @@
+## SET UP INSTRUCTION
+-Fork the repository on github
+-create a branch in your terminal
+- install the prerequisites
+- make appropriate changes
+## Add,commit and push by
+- git add
+- git commit -m “completed task”
+- git push
 ## Project Setup
 Once you have the plan in place for the application you want to build take the following steps:
 - Create a new project folder.
@@ -107,5 +116,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
 
