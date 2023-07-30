@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BotCard from "./BotCard";
+//import BotCard from "./BotCard";
 import BotCollection from "./BotCollection";
 import YourBotArmy from "./YourBotArmy";
 import BotSpecs from "./BotSpecs";
@@ -18,7 +18,7 @@ const botTypeClasses = {
 };
 
 function App() {
-  const [bots, setBots] = useState([]);
+  //const [bots, setBots] = useState([]);
   const [enlistedBots, setEnlistedBots] = useState([]);
   const [selectedBot, setSelectedBot] = useState(null);
   const [sortedBots, setSortedBots] = useState([]);
@@ -37,7 +37,7 @@ function App() {
         throw new Error("Failed to fetch bots");
       }
       const data = await response.json();
-      setBots(data);
+      //setBots(data);
       setSortedBots(data);
       setLoading(false);
     } catch (error) {
