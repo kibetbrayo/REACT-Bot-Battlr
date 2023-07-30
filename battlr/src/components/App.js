@@ -6,7 +6,7 @@ import BotSpecs from "./BotSpecs";
 import SortBar from "./SortBar";
 import FilterBar from "./FilterBar";
 
-const API_URL = "http://localhost:8000"; 
+const API_URL = "https://battlr.onrender.com/bots";
 
 const botTypeClasses = {
   Assault: "icon military",
@@ -23,6 +23,8 @@ function App() {
   const [selectedBot, setSelectedBot] = useState(null);
   const [sortedBots, setSortedBots] = useState([]);
   const [filterClasses, setFilterClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchBots();
@@ -30,38 +32,41 @@ function App() {
 
   const fetchBots = async () => {
     try {
-      const response = await fetch(`${API_URL}/bots`);
+      const response = await fetch(API_URL);
       if (!response.ok) {
         throw new Error("Failed to fetch bots");
       }
       const data = await response.json();
       setBots(data);
       setSortedBots(data);
+      setLoading(false);
     } catch (error) {
-      console.error("Error fetching bots:", error);
+      setError("Error fetching bots. Please try again later.");
+      setLoading(false);
     }
   };
+
   const enlistBot = (bot) => {
     if (!enlistedBots.find((enlistedBot) => enlistedBot.id === bot.id)) {
-      const updatedEnlistedBots = [bot, ...enlistedBots]; // Add the enlisted bot to the beginning
+      const updatedEnlistedBots = [bot, ...enlistedBots];
       setEnlistedBots(updatedEnlistedBots);
     }
   };
-  
+
   const deleteBot = async (bot) => {
     try {
-      const response = await fetch(`${API_URL}/bots/${bot.id}`, {
+      const response = await fetch(`${API_URL}/${bot.id}`, {
         method: "DELETE",
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to delete bot");
       }
-  
+
       setEnlistedBots(enlistedBots.filter((enlistedBot) => enlistedBot.id !== bot.id));
       setSortedBots(sortedBots.filter((sortedBot) => sortedBot.id !== bot.id));
     } catch (error) {
-      console.error("Error deleting bot:", error);
+      setError("Error deleting bot. Please try again later.");
     }
   };
 
@@ -90,23 +95,27 @@ function App() {
     ? sortedBots.filter(bot => filterClasses.includes(bot.bot_class))
     : sortedBots;
 
-  
-    return (
-      <div className="App">
-        {selectedBot ? (
-          <BotSpecs bot={selectedBot} goBack={goBackToList} enlistBot={enlistBot} />
-        ) : (
-          <div>
-            <h1>Your Bot Army</h1>
-            <YourBotArmy bots={enlistedBots} removeBot={deleteBot} />
-            <h1>All Bots</h1>
-            <SortBar handleSort={handleSort} />
-            <FilterBar botClasses={Object.keys(botTypeClasses)} handleFilter={handleFilter} />
-            <BotCollection bots={filteredBots} viewDetails={viewDetails} deleteBot={deleteBot} />
-          </div>
-        )}
-      </div>
-    );
+  if (loading) {
+    return <div>Loading...</div>;
   }
-  
-  export default App;
+
+  return (
+    <div className="App">
+      {selectedBot ? (
+        <BotSpecs bot={selectedBot} goBack={goBackToList} enlistBot={enlistBot} />
+      ) : (
+        <div>
+          {error && <div>{error}</div>}
+          <h1>Your Bot Army</h1>
+          <YourBotArmy bots={enlistedBots} removeBot={deleteBot} />
+          <h1>All Bots</h1>
+          <SortBar handleSort={handleSort} />
+          <FilterBar botClasses={Object.keys(botTypeClasses)} handleFilter={handleFilter} />
+          <BotCollection bots={filteredBots} viewDetails={viewDetails} deleteBot={deleteBot} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
