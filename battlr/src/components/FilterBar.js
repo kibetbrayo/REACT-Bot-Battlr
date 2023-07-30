@@ -4,7 +4,7 @@ function FilterBar({ botClasses, handleFilter }) {
   return (
     <div>
       {botClasses.map((botClass) => (
-        <div className="ui checkbox" key={botClass}>
+        <div className="checkbox" key={botClass}>
           <input
             type="checkbox"
             onChange={() => handleFilter(botClass)}
