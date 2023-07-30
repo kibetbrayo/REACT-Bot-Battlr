@@ -6,7 +6,7 @@ import BotSpecs from "./BotSpecs";
 import SortBar from "./SortBar";
 import FilterBar from "./FilterBar";
 
-const API_URL = "http://localhost:3000"; 
+const API_URL = "http://localhost:8000"; 
 
 const botTypeClasses = {
   Assault: "icon military",
